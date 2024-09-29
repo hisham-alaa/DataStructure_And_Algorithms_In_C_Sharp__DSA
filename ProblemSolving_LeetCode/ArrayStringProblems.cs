@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Diagnostics.Tracing;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ProblemSolving_LeetCode
 {
@@ -62,7 +57,6 @@ namespace ProblemSolving_LeetCode
 
             return counter;
         }
-
 
         public static int RemoveDuplicatesSecondVersion(int[] nums)
         {
@@ -137,6 +131,41 @@ namespace ProblemSolving_LeetCode
             }
 
             return res;
+        }
+
+        public static string MergeAlternately(string word1, string word2)
+        {
+            int len1 = word1.Length, len2 = word2.Length, min = Math.Min(len1, len2);
+            StringBuilder res = new StringBuilder(len1 + len2);
+            for (int i = 0; i < min; i++)
+            {
+                res.Append(word1[i]);
+                res.Append(word2[i]);
+            }
+            res.Append(len1 > len2 ? word1.Substring(min) : word2.Substring(min));
+
+            return res.ToString();
+        }
+
+        public static string GcdOfStrings(string str1, string str2)
+        {
+            int len1 = str1.Length, len2 = str2.Length;
+
+            List<int> Divisors = new List<int>();
+
+            for (int i = 1; i <= Math.Min(len1, len2); i++)
+                if (len1 % i == 0 && len2 % i == 0) Divisors.Add(i);
+
+            for (int i = Divisors.Count - 1; i >= 0; i--)
+            {
+                var temp1 = str1.Split(str1.Substring(0, Divisors[i]));
+                var temp2 = str2.Split(str1.Substring(0, Divisors[i]));
+                if (temp1.All(e => e.Length == 0) && temp2.All(e => e.Length == 0))
+                    return str1.Substring(0, Divisors[i]);
+
+            }
+
+            return "";
         }
 
     }
